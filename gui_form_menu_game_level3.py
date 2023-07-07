@@ -3,7 +3,6 @@ from pygame.locals import *
 from constantes import *
 from gui_form import Form
 from gui_button import Button
-from gui_textbox import TextBox
 from gui_progressbar import ProgressBar
 from player import Player
 from enemigo import Enemigo
@@ -24,15 +23,21 @@ class FormGameLevel3(Form):
 
         self.data = leer_archivo(r"JUEGO_ON\nivel_3.json")
         # --- GUI WIDGET --- 
-        self.boton1 = Button(master=self,x=ANCHO_VENTANA-550,y=ALTO_VENTANA-50,w=140,h=50,color_background=None,color_border=None,image_background="JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",on_click=self.on_click_boton1,on_click_param="form_menu_pausa_lvl2",text="PAUSA",font="Verdana",font_size=30,font_color=C_WHITE)
+        self.boton1 = Button(master=self,x=ANCHO_VENTANA-550,y=ALTO_VENTANA-50,w=140,h=50,color_background=None,color_border=None,image_background="JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",on_click=self.on_click_boton1,on_click_param="form_menu_pausa",text="PAUSA",font="Verdana",font_size=30,font_color=C_WHITE)
 
         self.pb_lives = ProgressBar(master=self,x=ANCHO_VENTANA-365,y=ALTO_VENTANA-50,w=240,h=50,color_background=None,color_border=None,image_background="JUEGO_ON\images\GUI\BARS\Bar_Background01.png",image_progress="JUEGO_ON\images\GUI\BARS\Bar_Segment05.png",value = 5, value_max=5)
         self.widget_list = [self.pb_lives,self.boton1]
-
-        # --- GAME ELEMNTS --- 
+        
+        self.lista_textos=[]
+        self.lista_textos.append(Score(master_surface=self.surface,x=0,y=ALTO_VENTANA-50,w=2000,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
+        self.lista_textos.append(Lives(master_surface=self.surface,x=ANCHO_VENTANA-100,y=ALTO_VENTANA-50,w=200,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
+        self.lista_textos.append(Timer(master_surface=self.surface,x=ANCHO_VENTANA/2,y=ALTO_VENTANA-50,w=300,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
 
         self.static_background = Background(x=0,y=0,width=w,height=h,path=r"JUEGO_ON\images\lvl3\background\fondito_god_lvl3.png")
 
+
+        # --- GAME ELEMNTS --- 
+        
         self.player_1 = Player(x=200,y=550,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200,tipe=2)
 
         self.boss = Boss(x=300,y=50,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10)
@@ -53,19 +58,20 @@ class FormGameLevel3(Form):
         
        
 
-        self.lista_textos=[]
-        self.lista_textos.append(Score(master_surface=self.surface,x=0,y=ALTO_VENTANA-50,w=2000,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
-        self.lista_textos.append(Lives(master_surface=self.surface,x=ANCHO_VENTANA-100,y=ALTO_VENTANA-50,w=200,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
-        self.lista_textos.append(Timer(master_surface=self.surface,x=ANCHO_VENTANA/2,y=ALTO_VENTANA-50,w=300,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
-
+       
         self.lista_portal = []
 
         self.cronometro = 60
         self.start_time = 0
         self.flag_timer = False
         self.play_music()
+        self.reiniciar = False
+        self.pause = False
+        self.win_menu = False
+        self.lose_menu = False
 
     def on_click_boton1(self, parametro):
+        self.pause = True
         self.set_active(parametro)
 
     def crear_plataformas(self,lista_json:list):
@@ -247,18 +253,31 @@ class FormGameLevel3(Form):
             self.player_1.score += self.cronometro * 10
             Sql.crear_tabla(lvl=3)
             Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=3)
+            self.lista_enemigos = []
             self.player_1 = Player(x=200,y=550,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200,tipe=2)
             self.boss = Boss(x=300,y=50,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10)
             self.lista_enemigos.append(self.boss)
             self.cronometro =60
+            self.win_menu = True
+
         if self.player_1.lives == 0 or self.cronometro == 0:
+            self.set_active("form_menu_game_over")   
             Sql.crear_tabla(lvl=2)
             Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=2)
-            self.set_active("form_menu_game_over")
             self.player_1 = Player(x=200,y=550,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200,tipe=2)
+            self.lista_enemigos = []
             self.boss = Boss(x=300,y=50,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10)
             self.lista_enemigos.append(self.boss)
             self.cronometro =60
+            self.lose_menu = True
+
+        if self.reiniciar == True:
+            self.player_1 = Player(x=200,y=550,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200,tipe=2)
+            self.lista_enemigos = []
+            self.boss = Boss(x=300,y=50,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10)
+            self.lista_enemigos.append(self.boss)
+            self.cronometro =60
+            self.reiniciar = False
 
 
     def draw(self): 

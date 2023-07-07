@@ -1,15 +1,11 @@
-import pygame
 from pygame.locals import *
 from gui_form import Form
 from gui_button import Button
-from gui_textbox import TextBox
-#from gui_progressbar import ProgressBar
 from constantes import *
 from configuraciones import *
 from background import Background
 from player_about import PlayerAbout
 
-#import sqlite3
 
 class FormMenuB(Form):
     def __init__(self,name,master_surface,x,y,w,h,color_background,color_border,active):

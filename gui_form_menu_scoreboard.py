@@ -1,4 +1,3 @@
-import pygame
 import sys
 from pygame.locals import *
 from constantes import *
@@ -7,7 +6,6 @@ from gui_button import Button
 from gui_label import Label
 from sql import *
 from background import Background
-#from gui_progressbar import ProgressBar
 
 
 
@@ -56,30 +54,61 @@ class FormMenuScoreboard(Form):
         with sqlite3.connect("JUEGO_ON/db/score_lvl1.db") as conexion:
             cursor=conexion.execute("SELECT nombre,value FROM score ORDER BY value DESC LIMIT 3")
             for fila in cursor:
-                self.lista_scores_lvl1.append(fila)
+                try:
+                    self.lista_scores_lvl1.append(fila)
+                except:
+                    pass
         conexion.close()
-        #print(self.lista_scores[0])
-        self.label2._text = "{0} {1}".format(self.lista_scores_lvl1[0][0],int(self.lista_scores_lvl1[0][1]))
-        self.label3._text = "{0} {1}".format(self.lista_scores_lvl1[1][0] ,int(self.lista_scores_lvl1[1][1]))
-        self.label4._text = "{0} {1}".format(self.lista_scores_lvl1[2][0] ,int(self.lista_scores_lvl1[2][1]))
+        try:
+            self.label2._text = "{0} {1}".format(self.lista_scores_lvl1[0][0],int(self.lista_scores_lvl1[0][1]))
+        except:
+            self.label2._text = "aaa 000"
+        try:
+            self.label3._text = "{0} {1}".format(self.lista_scores_lvl1[1][0] ,int(self.lista_scores_lvl1[1][1]))
+        except:
+            self.label3._text = "aaa 000"
+        try:
+            self.label4._text = "{0} {1}".format(self.lista_scores_lvl1[2][0] ,int(self.lista_scores_lvl1[2][1]))
+        except:
+            self.label4._text = "aaa 000"
+
         
         with sqlite3.connect("JUEGO_ON/db/score_lvl2.db") as conexion:
             cursor=conexion.execute("SELECT nombre,value FROM score ORDER BY value DESC LIMIT 3")
             for fila in cursor:
                 self.lista_scores_lvl2.append(fila)
         conexion.close()
-        self.label5._text = "{0} {1}".format(self.lista_scores_lvl2[0][0] , int(self.lista_scores_lvl2[0][1]))
-        self.label6._text = "{0} {1}".format(self.lista_scores_lvl2[1][0] , int(self.lista_scores_lvl2[1][1]))
-        self.label7._text = "{0} {1}".format(self.lista_scores_lvl2[2][0] , int(self.lista_scores_lvl2[2][1]))
+        try:
+            self.label5._text = "{0} {1}".format(self.lista_scores_lvl2[0][0] , int(self.lista_scores_lvl2[0][1]))
+        except:
+            self.label5._text = "aaa 000"
+        try:
+            self.label6._text = "{0} {1}".format(self.lista_scores_lvl2[1][0] , int(self.lista_scores_lvl2[1][1]))
+        except:
+            self.label6._text = "aaa 000"
+        try:
+            self.label7._text = "{0} {1}".format(self.lista_scores_lvl2[2][0] , int(self.lista_scores_lvl2[2][1]))
+        except:
+            self.label7._text = "aaa 000"
 
         with sqlite3.connect("JUEGO_ON/db/score_lvl3.db") as conexion:
             cursor=conexion.execute("SELECT nombre,value FROM score ORDER BY value DESC LIMIT 3")
             for fila in cursor:
                 self.lista_scores_lvl3.append(fila)
         conexion.close()
-        self.label8._text = "{0} {1}".format(self.lista_scores_lvl3[0][0] , int(self.lista_scores_lvl3[0][1]))
-        self.label9._text = "{0} {1}".format(self.lista_scores_lvl3[1][0] , int(self.lista_scores_lvl3[1][1]))
-        self.label10._text = "{0} {1}".format(self.lista_scores_lvl3[2][0] , int(self.lista_scores_lvl3[2][1]))
+        try:
+            self.label8._text = "{0} {1}".format(self.lista_scores_lvl3[0][0] , int(self.lista_scores_lvl3[0][1]))
+        except:
+            self.label8._text = "aaa 000"
+        try:
+            self.label9._text = "{0} {1}".format(self.lista_scores_lvl3[1][0] , int(self.lista_scores_lvl3[1][1]))
+        except:
+            self.label9._text = "aaa 000"
+        try:
+            self.label10._text = "{0} {1}".format(self.lista_scores_lvl3[2][0] , int(self.lista_scores_lvl3[2][1]))
+        except:
+            self.label10._text = "aaa 000"
+
 
 
 

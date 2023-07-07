@@ -2,8 +2,6 @@ import pygame
 from pygame.locals import *
 from constantes import *
 from gui_form import Form
-from gui_button import Button
-from gui_textbox import TextBox
 from gui_progressbar import ProgressBar
 from player import Player
 from enemigo import Enemigo
@@ -26,9 +24,15 @@ class FormGameLevel1(Form):
         self.pb_lives = ProgressBar(master=self,x=ANCHO_VENTANA-365,y=ALTO_VENTANA-50,w=240,h=50,color_background=None,color_border=None,image_background="JUEGO_ON\images\GUI\BARS\Bar_Background01.png",image_progress="JUEGO_ON\images\GUI\BARS\Bar_Segment05.png",value = 5, value_max=5)
         self.widget_list = [self.pb_lives,self.boton1]
 
-        # --- GAME ELEMNTS --- 
+        self.lista_textos=[]
+        self.lista_textos.append(Score(master_surface=self.surface,x=0,y=ALTO_VENTANA-50,w=2000,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
+        self.lista_textos.append(Lives(master_surface=self.surface,x=ANCHO_VENTANA-100,y=ALTO_VENTANA-50,w=200,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
+        self.lista_textos.append(Timer(master_surface=self.surface,x=ANCHO_VENTANA/2,y=ALTO_VENTANA-50,w=300,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
+
         self.static_background = Background(x=0,y=0,width=w,height=h,path=r"JUEGO_ON\images\2_game_background\2_game_background.png")
 
+        # --- GAME ELEMNTS --- 
+       
         self.player_1 = Player(x=500,y=610,speed_walk=30,speed_run=30,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
 
 
@@ -43,16 +47,17 @@ class FormGameLevel1(Form):
         self.lista_botinex = []
         self.crear_botines(self.data)
 
-        self.lista_textos=[]
-        self.lista_textos.append(Score(master_surface=self.surface,x=0,y=ALTO_VENTANA-50,w=2000,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
-        self.lista_textos.append(Lives(master_surface=self.surface,x=ANCHO_VENTANA-100,y=ALTO_VENTANA-50,w=200,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
-        self.lista_textos.append(Timer(master_surface=self.surface,x=ANCHO_VENTANA/2,y=ALTO_VENTANA-50,w=300,h=50,color_background="Black",color_border="White",font="Helvetica",font_size=30,font_color=RED))
-
+      
         self.cronometro = 60
         self.start_time = 0
         self.flag_timer = False
 
         self.play_music()
+        self.win = False
+        self.win_menu = False
+        self.reiniciar = False
+        self.pause = False
+        self.lose_menu = False
 
 
 
@@ -92,6 +97,7 @@ class FormGameLevel1(Form):
         
 
     def on_click_boton1(self, parametro):
+        self.pause = True
         self.set_active(parametro)
 
 
@@ -167,6 +173,8 @@ class FormGameLevel1(Form):
             Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=1)
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
             self.cronometro =60
+            self.win = True
+            self.win_menu = True
 
         if self.player_1.lives == 0 or self.cronometro == 0:
             self.set_active("form_menu_game_over")
@@ -178,6 +186,16 @@ class FormGameLevel1(Form):
             Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=1)
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
             self.cronometro =60
+            self.lose_menu = True
+        
+        if self.reiniciar == True:
+            self.lista_enemigos = []
+            self.crear_enemigos(self.data)
+            self.lista_botinex = []
+            self.crear_botines(self.data)
+            self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
+            self.cronometro =60
+            self.reiniciar = False
 
 
     def draw(self): 

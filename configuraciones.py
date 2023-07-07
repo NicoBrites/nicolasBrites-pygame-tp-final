@@ -29,6 +29,44 @@ def girar_imagenes(lista_original, flip_x, flip_y):
 
     return lista_girada
 
+def leer_archivo(string_de_archivo_json):
+    '''
+    La funcion lee un json y lo devuelve como una lista
+    Recibe: una direccion de donde se encuentra el archivo
+    Devuelve: el archivo transformado a lista
+    '''
+    lista= []
+    with open(string_de_archivo_json, "r") as archivo:
+        dict = json.load(archivo)
+        lista = dict["nivel"]
+
+    return lista
+
+volumen_laser  = 0.1
+volumen_otros_efectos = 0.2
+volumen_fondo = 0.2
+
+flag_sonido = True
+
+if flag_sonido == True:
+    pygame.mixer.init()
+    # pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Common Fight.ogg")
+    # pygame.mixer.music.play(3)
+    # pygame.mixer.music.set_volume(VOLUMEN_FONDO)
+
+
+    SONIDO_DISPARO = generar_sonido(r"JUEGO_ON\music\sonido_disparo\SpaceLaserShot PE1095407.wav", volumen_laser)
+    SONIDO_SALTO = generar_sonido(r"JUEGO_ON\music\sonido_salto\SALTO.wav", VOLUMEN_OTROS_EFECTOS)
+    SONIDO_EXPLOSION = generar_sonido(r"JUEGO_ON\music\sonido_explosion\EXPLOSIONM.wav", VOLUMEN_OTROS_EFECTOS)
+    SONIDO_COIN = generar_sonido(r"JUEGO_ON\music\sonido_coinn\COINN.wav", VOLUMEN_OTROS_EFECTOS)
+else:
+    pygame.mixer.music.set_volume(0)
+    SONIDO_DISPARO = generar_sonido(r"JUEGO_ON\music\sonido_disparo\SpaceLaserShot PE1095407.wav", 0)
+    SONIDO_SALTO = generar_sonido(r"JUEGO_ON\music\sonido_salto\SALTO.wav", 0)
+    SONIDO_EXPLOSION = generar_sonido(r"JUEGO_ON\music\sonido_explosion\EXPLOSIONM.wav", 0)
+    SONIDO_COIN = generar_sonido(r"JUEGO_ON\music\sonido_coinn\COINN.wav", 0)
+
+
 enemigo_walk_r = [pygame.image.load(r"JUEGO_ON\images\ENEMIGO_1\SKELETON_WALK\skeleton-walk1.png"),
                 pygame.image.load(r"JUEGO_ON\images\ENEMIGO_1\SKELETON_WALK\skeleton-walk2.png"),
                 pygame.image.load(r"JUEGO_ON\images\ENEMIGO_1\SKELETON_WALK\skeleton-walk3.png"),
@@ -87,30 +125,6 @@ shoot_proyectil_l = [pygame.image.load(r"JUEGO_ON\images\BICHITO ESPACIAL\BICHIT
                      pygame.image.load(r"JUEGO_ON\images\BICHITO ESPACIAL\BICHITO SHOOT\player-shoot3.png")]
 
 shoot_proyectil_r = girar_imagenes(shoot_proyectil_l, True,False)
-
-volumen_laser  = 0.1
-volumen_otros_efectos = 0.2
-volumen_fondo = 0.2
-
-flag_sonido = True
-
-if flag_sonido == True:
-    pygame.mixer.init()
-    # pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Common Fight.ogg")
-    # pygame.mixer.music.play(3)
-    # pygame.mixer.music.set_volume(VOLUMEN_FONDO)
-
-
-    SONIDO_DISPARO = generar_sonido(r"JUEGO_ON\music\sonido_disparo\SpaceLaserShot PE1095407.wav", volumen_laser)
-    SONIDO_SALTO = generar_sonido(r"JUEGO_ON\music\sonido_salto\SALTO.wav", VOLUMEN_OTROS_EFECTOS)
-    SONIDO_EXPLOSION = generar_sonido(r"JUEGO_ON\music\sonido_explosion\EXPLOSIONM.wav", VOLUMEN_OTROS_EFECTOS)
-    SONIDO_COIN = generar_sonido(r"JUEGO_ON\music\sonido_coinn\COINN.wav", VOLUMEN_OTROS_EFECTOS)
-else:
-    pygame.mixer.music.set_volume(0)
-    SONIDO_DISPARO = generar_sonido(r"JUEGO_ON\music\sonido_disparo\SpaceLaserShot PE1095407.wav", 0)
-    SONIDO_SALTO = generar_sonido(r"JUEGO_ON\music\sonido_salto\SALTO.wav", 0)
-    SONIDO_EXPLOSION = generar_sonido(r"JUEGO_ON\music\sonido_explosion\EXPLOSIONM.wav", 0)
-    SONIDO_COIN = generar_sonido(r"JUEGO_ON\music\sonido_coinn\COINN.wav", 0)
 
 
 proyectil_dragonsito = [pygame.image.load(r"JUEGO_ON\images\lvl2\ENEMY_dispara\proyectil_dragon\fireball1.png"),
@@ -210,15 +224,3 @@ proyectil_boss = [pygame.image.load(r"JUEGO_ON\images\lvl3\boss\proyectil\fireba
                   pygame.image.load(r"JUEGO_ON\images\lvl3\boss\proyectil\fireball1.png")]
 
 
-def leer_archivo(string_de_archivo_json):
-    '''
-    La funcion lee un json y lo devuelve como una lista
-    Recibe: una direccion de donde se encuentra el archivo
-    Devuelve: el archivo transformado a lista
-    '''
-    lista= []
-    with open(string_de_archivo_json, "r") as archivo:
-        dict = json.load(archivo)
-        lista = dict["nivel"]
-
-    return lista
