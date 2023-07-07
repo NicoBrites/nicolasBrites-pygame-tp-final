@@ -1,5 +1,5 @@
 import pygame
-import math
+import sys
 from pygame.locals import *
 from gui_form import Form
 from gui_button import Button
@@ -15,33 +15,10 @@ class FormMenuGameOver(Form):
         super().__init__(name,master_surface,x,y,w,h,color_background,color_border,active)
 
         self.boton1 = Button(master=self,x=0,y=150,w=300,h=40,color_background=C_GREEEN_2,color_border=C_YELLOW_2,on_click=self.on_click_boton1,on_click_param="form_menu_A",text="MENU PRINCIPAL",font="Verdana",font_size=30,font_color=C_BLACK)
-        self.boton2 = Button(master=self,x=0,y=200,w=300,h=40,color_background=C_PINK,color_border=C_RED,on_click=self.on_click_boton2,on_click_param="form_game_L1",text="VOLVER A JUGAR",font="Verdana",font_size=30,font_color=C_BLACK)
-        #self.boton3 = Button(master=self,x=0,y=250,w=200,h=40,color_background=C_PINK,color_border=C_RED,on_click=self.on_click_boton3,on_click_param="",text="SCORES",font="Verdana",font_size=30,font_color=C_BLACK)
-        # self.boton4 = Button(master=self,x=0,y=300,w=200,h=40,color_background=C_PINK,color_border=C_RED,on_click=self.on_click_boton4,on_click_param="",text="-",font="Verdana",font_size=30,font_color=C_BLACK)
+        self.boton2 = Button(master=self,x=0,y=200,w=300,h=40,color_background=C_PINK,color_border=C_RED,on_click=self.on_click_boton2,on_click_param="",text="SALIR",font="Verdana",font_size=30,font_color=C_BLACK)
         
-        # self.graph1 = Graph(master=self,x=400,y=0,w=500,h=500,color_background=C_BLACK,color_border=C_RED)
-       
-        # self.label_xy0 = Label(master=self,x=0,y=50,w=60,h=40,color_background=C_BLACK,color_border=C_BLUE,image_background=None,text="X0 Y0",font="Verdana",font_size=20,font_color=C_WHITE)
-        # self.txt_x0 = TextBox(master=self,x=70,y=50,w=100,h=40,color_background=C_BLACK,color_border=C_BLUE,image_background=None,text="0",font="Verdana",font_size=30,font_color=C_WHITE)
-        # self.txt_y0 = TextBox(master=self,x=180,y=50,w=100,h=40,color_background=C_BLACK,color_border=C_BLUE,image_background=None,text="0",font="Verdana",font_size=30,font_color=C_WHITE)
-        
-        # self.label_xy1 = Label(master=self,x=0,y=100,w=60,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="X1 Y1",font="Verdana",font_size=20,font_color=C_WHITE)
         self.txt_x1 = TextBox(master=self,x=70,y=100,w=300,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="PERDISTE REYNALDO",font="Verdana",font_size=30,font_color=C_WHITE)
-        # self.txt_y1 = TextBox(master=self,x=180,y=100,w=100,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="100",font="Verdana",font_size=30,font_color=C_WHITE)
-         
-        # self.label_angulo = Label(master=self,x=0,y=350,w=60,h=40,color_background=C_BLACK,color_border=C_BLUE,image_background=None,text="ANG",font="Verdana",font_size=20,font_color=C_WHITE)
-        # self.txt_angulo_r = TextBox(master=self,x=70,y=350,w=100,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="-",font="Verdana",font_size=20,font_color=C_WHITE)
-        # self.txt_angulo_d = TextBox(master=self,x=180,y=350,w=100,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="-",font="Verdana",font_size=20,font_color=C_WHITE)
 
-        # self.label_cos = Label(master=self,x=0,y=400,w=60,h=40,color_background=C_BLACK,color_border=C_BLUE,image_background=None,text="COS",font="Verdana",font_size=20,font_color=C_WHITE)
-        # self.txt_cos = TextBox(master=self,x=70,y=400,w=210,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="-",font="Verdana",font_size=20,font_color=C_WHITE)
-
-        # self.label_sin = Label(master=self,x=0,y=450,w=60,h=40,color_background=C_BLACK,color_border=C_BLUE,image_background=None,text="SIN",font="Verdana",font_size=20,font_color=C_WHITE)
-        # self.txt_sin = TextBox(master=self,x=70,y=450,w=210,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="-",font="Verdana",font_size=20,font_color=C_WHITE)
-
-        # self.label_longitud = Label(master=self,x=0,y=500,w=60,h=40,color_background=C_BLACK,color_border=C_BLUE,image_background=None,text="Lenght",font="Verdana",font_size=20,font_color=C_WHITE)
-        # self.txt_longitud = TextBox(master=self,x=70,y=500,w=210,h=40,color_background=C_BLACK,color_border=C_RED,image_background=None,text="-",font="Verdana",font_size=20,font_color=C_WHITE)
-                       
 
         self.lista_widget = [self.boton1,self.boton2,self.txt_x1]
         # self.lista_widget = [   self.boton1,self.boton2,self.boton3,self.boton4,self.txt_x0,self.txt_y0,self.txt_x1,
@@ -57,7 +34,7 @@ class FormMenuGameOver(Form):
         self.set_active(parametro)
 
     def on_click_boton2(self, parametro):
-        self.set_active(parametro)
+        sys.exit()
        
 
     def on_click_boton3(self, parametro):

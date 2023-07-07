@@ -40,6 +40,7 @@ class Enemigo_calaca_lvl2():
         self.rect_ground_collition = pygame.Rect(self.rect.x + self.rect.w /3, self.rect.y + self.rect.h - GROUND_RECT_H, self.rect.w /3, GROUND_RECT_H)
 
 
+
     def do_movement(self, delta_ms):
    
         self.tiempo_transcurrido_move += delta_ms

@@ -4,7 +4,7 @@ class Auxiliar:
     @staticmethod
     def getSurfaceFromSpriteSheet(path, columnas, filas, flip = False):
         lista = []
-        surface_imagen = pygame.image.load(path)
+        surface_imagen = pygame.image.load(path).convert_alpha()
         fotograma_ancho = int(surface_imagen.get_width()/columnas)
         fotograma_alto = int(surface_imagen.get_height()/filas)
         x = 0

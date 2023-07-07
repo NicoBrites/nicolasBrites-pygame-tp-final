@@ -22,6 +22,7 @@ class Proyectiles:
         self.colisiono = False
         self.tiempo_colision = 0
 
+
         self.direction = direction
 
     def update(self,ms):
@@ -50,6 +51,7 @@ class Proyectiles:
     def is_explosion(self,delta_ms):
         if self.animation == self.proyectil_hit:
             self.tiempo_colision += delta_ms
+        print(self.tiempo_colision)
         if self.tiempo_colision >= 500:
             self.colisiono = True
             self.frame = 0  

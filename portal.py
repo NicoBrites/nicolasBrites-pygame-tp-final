@@ -20,6 +20,19 @@ class Portal:
 
         self.tiempo_transcurrido_animation = 0
 
+
+
+    # def do_animation(self, delta_ms):
+
+    #     self.tiempo_transcurrido_animation += delta_ms
+       
+    #     if (self.tiempo_transcurrido_animation >=self.frame_rate_ms ):
+    #         self.tiempo_transcurrido_animation = 0
+    #         if (self.frame < len(self.animation) -1):
+    #             self.frame += 1
+    #         else:
+    #             self.frame = 0  
+
     def update(self,delta_ms):
         self.tiempo_transcurrido_animation += delta_ms
        

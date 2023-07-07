@@ -16,6 +16,7 @@ from configuraciones import *
 from enemigo_calaca_lvl2 import *
 from enemigo_drag_lvl2 import *
 from portal import Portal
+from sql import *
 
 
 class FormGameLevel2(Form):
@@ -56,6 +57,8 @@ class FormGameLevel2(Form):
 
         self.cronometro = 60
 
+        self.play_music()
+
 
     def crear_plataformas(self,lista_json:list):
         for objetos in lista_json:
@@ -83,6 +86,8 @@ class FormGameLevel2(Form):
                                 self.lista_enemigos.append(Enemigo_calaca_lvl2(x=enemigos["x"],y=enemigos["y"],speed_walk=enemigos["speed_walk"],speed_run=enemigos["speed_run"],gravity=enemigos["gravity"],
                                                                   frame_rate_ms=enemigos["frame_rate_ms"],move_rate_ms=enemigos["move_rate_ms"],type=enemigos["type"]))
                         
+                        
+
     def crear_botines(self,lista_json:list):
         for objetos in lista_json:
                 for clave,valor in objetos.items():
@@ -98,6 +103,12 @@ class FormGameLevel2(Form):
 
     def on_click_boton1(self, parametro):
         self.set_active(parametro)  
+
+    def play_music(self):
+
+        pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Dangerous_Dungeon.ogg")
+        pygame.mixer.music.play(3)
+        pygame.mixer.music.set_volume(VOLUMEN_FONDO)
 
     def update(self,events,keys,delta_ms,evento_1000ms):
 
@@ -184,11 +195,13 @@ class FormGameLevel2(Form):
         if len(self.lista_portal) > 0:
             for portal in self.lista_portal:
                 portal.update(delta_ms)
+                print("entro")
 
         if self.player_1.llave == True:
             self.lista_botinex.append(Escalerita(1450,650,48,54))
             self.lista_portal.append(Portal(1430,610,32,64,100))
             self.player_1.llave = False
+
 
         if self.player_1.escalerita == True:
             self.set_active("form_menu_win")
@@ -197,6 +210,9 @@ class FormGameLevel2(Form):
             self.lista_botinex.append(Botin(1300,150,48,54))
             self.lista_botinex.append(Botin(200,150,48,54))
             self.lista_botinex.append(Comidita(10,300,48,54))
+            self.player_1.score += self.cronometro * 10
+            Sql.crear_tabla(lvl=2)
+            Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=2)
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
             self.cronometro =60
         if self.player_1.lives == 0 or self.cronometro == 0:
@@ -206,6 +222,8 @@ class FormGameLevel2(Form):
             self.lista_botinex.append(Botin(1300,150,48,54))
             self.lista_botinex.append(Botin(200,150,48,54))
             self.lista_botinex.append(Comidita(10,300,48,54))
+            Sql.crear_tabla(lvl=2)
+            Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=2)
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
             self.cronometro =60
 

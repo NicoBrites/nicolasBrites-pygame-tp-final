@@ -4,7 +4,7 @@ from constantes import *
 class Background:
     def __init__(self, x, y,width, height,  path):
 
-        self.image = pygame.image.load(path).convert()
+        self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.scale(self.image,(width,height))
         self.rect = self.image.get_rect()
         self.rect.x = x

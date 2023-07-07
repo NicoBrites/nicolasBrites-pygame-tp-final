@@ -12,6 +12,8 @@ from background import Background
 from botin import *
 from textos import *
 from configuraciones import *
+from sql import *
+from gui_form_menu_A import *
 
 class FormGameLevel1(Form):
     def __init__(self,name,master_surface,x,y,w,h,color_background,color_border,active):
@@ -20,16 +22,16 @@ class FormGameLevel1(Form):
         self.data = leer_archivo(r"JUEGO_ON\nivel_1.json")
         # --- GUI WIDGET --- 
         self.boton1 = Button(master=self,x=ANCHO_VENTANA-550,y=ALTO_VENTANA-50,w=140,h=50,color_background=None,color_border=None,image_background="JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",on_click=self.on_click_boton1,on_click_param="form_menu_pausa",text="PAUSA",font="Verdana",font_size=30,font_color=C_WHITE)
- 
+
         self.pb_lives = ProgressBar(master=self,x=ANCHO_VENTANA-365,y=ALTO_VENTANA-50,w=240,h=50,color_background=None,color_border=None,image_background="JUEGO_ON\images\GUI\BARS\Bar_Background01.png",image_progress="JUEGO_ON\images\GUI\BARS\Bar_Segment05.png",value = 5, value_max=5)
         self.widget_list = [self.pb_lives,self.boton1]
 
         # --- GAME ELEMNTS --- 
         self.static_background = Background(x=0,y=0,width=w,height=h,path=r"JUEGO_ON\images\2_game_background\2_game_background.png")
 
-        self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
+        self.player_1 = Player(x=500,y=610,speed_walk=30,speed_run=30,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
 
-                
+
         self.lista_enemigos = []
         self.crear_enemigos(self.data)
 
@@ -49,6 +51,10 @@ class FormGameLevel1(Form):
         self.cronometro = 60
         self.start_time = 0
         self.flag_timer = False
+
+        self.play_music()
+
+
 
     def crear_plataformas(self,lista_json:list):
         for objetos in lista_json:
@@ -78,13 +84,19 @@ class FormGameLevel1(Form):
                             else:
                                 self.lista_botinex.append(Comidita(x=botines["x"],y=botines["y"],w=botines["w"],h=botines["h"]))
 
+    def play_music(self):
+
+        pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Common_Fight.ogg")
+        pygame.mixer.music.play(3)
+        pygame.mixer.music.set_volume(VOLUMEN_FONDO)
+        
 
     def on_click_boton1(self, parametro):
         self.set_active(parametro)
 
 
     def update(self,events,keys,delta_ms,evento_1000ms):
-       
+        
 
         for aux_widget in self.widget_list:
            aux_widget.update(events)
@@ -142,25 +154,31 @@ class FormGameLevel1(Form):
             self.lista_botinex.append(Llave(10,700,48,54))
         if self.player_1.llave == True:
             self.lista_botinex.append(Escalerita(1400,700,48,54))
+            
             #SI GANO O SI PIEDO :
         if self.player_1.escalerita == True:
             self.set_active("form_menu_win")
-            self.lista_enemigos.append(Enemigo(x=1200,y=100,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10))
-            self.lista_enemigos.append(Enemigo(x=400,y=100,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10))
-            self.lista_botinex.append(Botin(1300,150,48,54))
-            self.lista_botinex.append(Botin(200,150,48,54))
-            self.lista_botinex.append(Comidita(10,300,48,54))
+            self.lista_enemigos = []
+            self.crear_enemigos(self.data)
+            self.lista_botinex = []
+            self.crear_botines(self.data)
+            self.player_1.score += self.cronometro * 10
+            Sql.crear_tabla(lvl=1)
+            Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=1)
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
             self.cronometro =60
+
         if self.player_1.lives == 0 or self.cronometro == 0:
             self.set_active("form_menu_game_over")
-            self.lista_enemigos.append(Enemigo(x=1200,y=100,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10))
-            self.lista_enemigos.append(Enemigo(x=400,y=100,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10))
-            self.lista_botinex.append(Botin(1300,150,48,54))
-            self.lista_botinex.append(Botin(200,150,48,54))
-            self.lista_botinex.append(Comidita(10,300,48,54))
+            self.lista_enemigos = []
+            self.crear_enemigos(self.data)
+            self.lista_botinex = []
+            self.crear_botines(self.data)
+            Sql.crear_tabla(lvl=1)
+            Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=1)
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
             self.cronometro =60
+
 
     def draw(self): 
         super().draw()

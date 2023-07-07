@@ -14,7 +14,7 @@ from textos import *
 from configuraciones import *
 from enemigo_drag_lvl2 import *
 from enemigo_calaca_lvl2 import *
-import time
+from sql import *
 from boss_final import Boss
 from proyectiles_lvl3 import *
 
@@ -63,6 +63,7 @@ class FormGameLevel3(Form):
         self.cronometro = 60
         self.start_time = 0
         self.flag_timer = False
+        self.play_music()
 
     def on_click_boton1(self, parametro):
         self.set_active(parametro)
@@ -80,6 +81,13 @@ class FormGameLevel3(Form):
                             self.lista_plataformas.append(Plataforma_lvl2_dinamica(x=plataformas["x"],y=plataformas["y"],w=plataformas["w"],h=plataformas["h"],type=plataformas["type"]))
                         else:
                             self.lista_plataformas.append(Plataforma_lvl2_dinamica_y(x=plataformas["x"],y=plataformas["y"],w=plataformas["w"],h=plataformas["h"],type=plataformas["type"]))
+
+
+    def play_music(self):
+
+        pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Boss_Fight.ogg")
+        pygame.mixer.music.play(3)
+        pygame.mixer.music.set_volume(VOLUMEN_FONDO)
 
     def update(self,events,keys,delta_ms,evento_1000ms):
 
@@ -181,6 +189,7 @@ class FormGameLevel3(Form):
                 enemy_element.update(delta_ms,self.bullet_list)
                 if enemy_element.exploto == True:
                     self.lista_enemigos.remove(enemy_element)
+                    self.player_1.score += 10000
 
             for bullet in self.bullet_list:
                 bullet.update(delta_ms)
@@ -235,11 +244,16 @@ class FormGameLevel3(Form):
 
         if len(self.lista_enemigos) == 0:
             self.set_active("form_menu_win")
+            self.player_1.score += self.cronometro * 10
+            Sql.crear_tabla(lvl=3)
+            Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=3)
             self.player_1 = Player(x=200,y=550,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200,tipe=2)
             self.boss = Boss(x=300,y=50,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10)
             self.lista_enemigos.append(self.boss)
             self.cronometro =60
         if self.player_1.lives == 0 or self.cronometro == 0:
+            Sql.crear_tabla(lvl=2)
+            Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=2)
             self.set_active("form_menu_game_over")
             self.player_1 = Player(x=200,y=550,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200,tipe=2)
             self.boss = Boss(x=300,y=50,speed_walk=4,speed_run=8,gravity=15,frame_rate_ms=50,move_rate_ms=10)

@@ -39,6 +39,10 @@ class Form():
                 return aux_form
         return None
 
+    @staticmethod
+    def devolver_txt(name):
+        return Form.forms_dict[name].txt1._text
+    
     def render(self):
         pass
 

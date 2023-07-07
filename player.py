@@ -17,14 +17,14 @@ class Player:
             self.walk_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player-run.png",6,1),(100,120))
             self.stay_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player-idle.png",6,1),(100,120))
             self.stay_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player-idle.png",6,1,True),(100,120))
-            self.jump_imagen_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\BICHITO_JUMP.png",6,1,True),(100,120))
-            self.jump_imagen_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\BICHITO_JUMP.png",6,1),(100,120))
+            self.jump_imagen_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player_jump3.png",6,1,True),(100,120))
+            self.jump_imagen_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player_jump3.png",6,1),(100,120))
 
             self.shoot_proyectil_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\bichito_shoot.png",6,1,True),(100,120))
             self.shoot_proyectil_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\bichito_shoot.png",6,1),(100,120))
 
-            self.hurt_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\WACHIN_HURT.png",6,1,True),(100,120))
-            self.hurt_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\WACHIN_HURT.png",6,1),(100,120))
+            self.hurt_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\Player_hurttt.png",6,1,True),(100,120))
+            self.hurt_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\Player_hurttt.png",6,1),(100,120))
 
         if self.tipe == 2:
 
@@ -32,14 +32,14 @@ class Player:
             self.walk_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player-run.png",6,1),(50,60))
             self.stay_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player-idle.png",6,1),(50,60))
             self.stay_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player-idle.png",6,1,True),(50,60))
-            self.jump_imagen_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\BICHITO_JUMP.png",6,1,True),(50,60))
-            self.jump_imagen_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\BICHITO_JUMP.png",6,1),(50,60))
+            self.jump_imagen_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player_jump3.png",6,1,True),(50,60))
+            self.jump_imagen_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\player_jump3.png",6,1),(50,60))
 
             self.shoot_proyectil_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\bichito_shoot.png",6,1,True),(50,60))
             self.shoot_proyectil_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\bichito_shoot.png",6,1),(50,60))
 
-            self.hurt_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\WACHIN_HURT.png",6,1,True),(50,60))
-            self.hurt_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\WACHIN_HURT.png",6,1),(50,60))
+            self.hurt_l = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\Player_hurttt.png",6,1,True),(50,60))
+            self.hurt_r = reescalar_imagen(Auxiliar.getSurfaceFromSpriteSheet(r"JUEGO_ON\images\BICHITO ESPACIAL\spritesheets\Player_hurttt.png",6,1),(50,60))
 
         self.frame = 0
         self.lives = 5

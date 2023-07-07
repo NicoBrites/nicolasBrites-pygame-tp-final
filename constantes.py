@@ -6,6 +6,8 @@ FPS = 60
 
 tamaño_player = (146,102)
 
+puntaje = 0
+
 DIRECTION_L = 0
 DIRECTION_R = 1
 

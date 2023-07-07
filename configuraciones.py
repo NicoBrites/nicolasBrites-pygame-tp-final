@@ -93,11 +93,12 @@ volumen_otros_efectos = 0.2
 volumen_fondo = 0.2
 
 flag_sonido = True
+
 if flag_sonido == True:
     pygame.mixer.init()
-    pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Common Fight.ogg")
-    pygame.mixer.music.play(3)
-    pygame.mixer.music.set_volume(VOLUMEN_FONDO)
+    # pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Common Fight.ogg")
+    # pygame.mixer.music.play(3)
+    # pygame.mixer.music.set_volume(VOLUMEN_FONDO)
 
 
     SONIDO_DISPARO = generar_sonido(r"JUEGO_ON\music\sonido_disparo\SpaceLaserShot PE1095407.wav", volumen_laser)
