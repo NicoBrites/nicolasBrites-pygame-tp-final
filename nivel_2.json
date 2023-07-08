@@ -1,5 +1,7 @@
 {"nivel": 
             [
+            {"player":
+                {"x":500,"y":550,"speed_walk":8,"speed_run":8,"gravity":17,"jump_power":50,"frame_rate_ms":50,"move_rate_ms":50,"jump_heigh":200,"tipe":2}},
             {"plataformas":
                             [
                             {"plataforma":"Piso_lvl2","x":0,"y":680,"w":500,"h":33,"type":1},

@@ -274,7 +274,7 @@ class Player:
     def collisiono_bullet(self, bullet_list,pb_lives):
         collision_detected = False
         for bullet in bullet_list:
-            if type(bullet) == Proyectiles_lvl2_mage or type(bullet) == Proyectiles_lvl3:
+            if type(bullet) == Proyectiles_lvl2_mage or type(bullet) == Proyectiles_lvl3 or type(bullet) == Proyectiles_lvl3_final_map:
                 if self.rect.colliderect(bullet.rect):
                     collision_detected = True
                     break

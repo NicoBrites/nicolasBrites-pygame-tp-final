@@ -4,6 +4,8 @@ from configuraciones import *
 from auxiliar import Auxiliar
 from proyectiles import *
 from proyectiles_lvl3 import *
+from proyectiles_final_map import *
+from gui_progressbar import ProgressBar
 
 class Boss:
     def __init__(self,x,y,speed_walk, speed_run,gravity,frame_rate_ms,move_rate_ms,tipe=0) -> None:
@@ -27,7 +29,7 @@ class Boss:
         self.rect.x = x
         self.rect.y = y
 
-
+        
         self.exploto = False
         self.tiempo_explotado = 0
 
@@ -45,6 +47,8 @@ class Boss:
         self.tiempo_transcurrido_animation = 0
 
         self.rect_hit_collition = pygame.Rect(self.rect.x + 450 , self.rect.y + 220  , self.rect.w -900  , self.rect.h - 200 )
+
+      
 
 
     def do_movement(self, delta_ms,bullet_list):
@@ -117,6 +121,7 @@ class Boss:
         if self.tiempo_explotado >= 2000:
             self.exploto = True
 
+
     def crear_proyectil(self,ms,direction,type=0):
         if type == 0:
             proyectil = Proyectiles_lvl3(x = self.rect_hit_collition.centerx ,y= self.rect_hit_collition.centery ,speed_proyectil=15,direction=direction,ms=ms)
@@ -150,5 +155,6 @@ class Boss:
         except IndexError as e:
             print("Crasheo : {0}".format(e))
             self.image = self.animation[0]
+
             
         screen.blit(self.image,self.rect)

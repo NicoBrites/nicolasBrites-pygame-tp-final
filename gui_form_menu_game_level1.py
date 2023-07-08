@@ -17,7 +17,7 @@ class FormGameLevel1(Form):
     def __init__(self,name,master_surface,x,y,w,h,color_background,color_border,active):
         super().__init__(name,master_surface,x,y,w,h,color_background,color_border,active)
 
-        self.data = leer_archivo(r"JUEGO_ON\nivel_1.json")
+        self.data = leer_archivo(r"proyecto_final_lab1\proyecto_final_lab1\nivel_1.json")
         # --- GUI WIDGET --- 
         self.boton1 = Button(master=self,x=ANCHO_VENTANA-550,y=ALTO_VENTANA-50,w=140,h=50,color_background=None,color_border=None,image_background="JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",on_click=self.on_click_boton1,on_click_param="form_menu_pausa",text="PAUSA",font="Verdana",font_size=30,font_color=C_WHITE)
 
@@ -33,7 +33,9 @@ class FormGameLevel1(Form):
 
         # --- GAME ELEMNTS --- 
        
-        self.player_1 = Player(x=500,y=610,speed_walk=30,speed_run=30,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
+        self.player_1 = self.crear_player(self.data)
+        
+        #Player(x=500,y=610,speed_walk=30,speed_run=30,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
 
 
         self.lista_enemigos = []
@@ -59,7 +61,15 @@ class FormGameLevel1(Form):
         self.pause = False
         self.lose_menu = False
 
-
+    def crear_player(self,lista_json:list):
+        for objetos in lista_json:
+            print(objetos)  
+            for clave,valor in objetos.items():
+                print(clave,valor)
+                if clave == "player":       
+                    print("entro")            
+                    return Player(x=valor["x"],y=valor["y"],speed_walk=valor["speed_walk"],speed_run=valor["speed_run"],gravity=valor["gravity"],jump_power=valor["jump_power"],
+                                  frame_rate_ms=valor["frame_rate_ms"],move_rate_ms=valor["move_rate_ms"],jump_heigh=valor["jump_heigh"])
 
     def crear_plataformas(self,lista_json:list):
         for objetos in lista_json:
@@ -103,7 +113,7 @@ class FormGameLevel1(Form):
 
     def update(self,events,keys,delta_ms,evento_1000ms):
         
-
+        print(self.player_1.score)
         for aux_widget in self.widget_list:
            aux_widget.update(events)
 
@@ -168,6 +178,7 @@ class FormGameLevel1(Form):
             self.crear_enemigos(self.data)
             self.lista_botinex = []
             self.crear_botines(self.data)
+            self.bullet_list = []
             self.player_1.score += self.cronometro * 10
             Sql.crear_tabla(lvl=1)
             Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=1)
@@ -182,6 +193,7 @@ class FormGameLevel1(Form):
             self.crear_enemigos(self.data)
             self.lista_botinex = []
             self.crear_botines(self.data)
+            self.bullet_list = []
             Sql.crear_tabla(lvl=1)
             Sql.agregar_datos(Form.devolver_txt("form_menu_A"),self.player_1.score,lvl=1)
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
@@ -193,6 +205,7 @@ class FormGameLevel1(Form):
             self.crear_enemigos(self.data)
             self.lista_botinex = []
             self.crear_botines(self.data)
+            self.bullet_list = []
             self.player_1 = Player(x=500,y=610,speed_walk=8,speed_run=8,gravity=17,jump_power=50,frame_rate_ms=50,move_rate_ms=50,jump_heigh=200)
             self.cronometro =60
             self.reiniciar = False
