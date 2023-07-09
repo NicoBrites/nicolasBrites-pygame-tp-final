@@ -148,7 +148,13 @@ class Player:
         collision_detected = False
         for enemigo in lista_enemigos:
             if type(enemigo) == Boss:
-                if self.rect.colliderect(enemigo.rect_hit_collition):
+                if self.rect.colliderect(enemigo.rect_hit_collition) :
+                    collision_detected = True
+                    break
+                if ((enemigo.animation == enemigo.atack_l) and (enemigo.frame> 8 and enemigo.frame<12)) and self.rect.colliderect(enemigo.rect_hit_collition_atack_l):
+                    collision_detected = True
+                    break
+                if (enemigo.animation == enemigo.atack_r and (enemigo.frame> 8 and enemigo.frame<12)) and self.rect.colliderect(enemigo.rect_hit_collition_atack_r):
                     collision_detected = True
                     break
             elif self.rect.colliderect(enemigo.rect):

@@ -47,6 +47,8 @@ class Boss:
         self.tiempo_transcurrido_animation = 0
 
         self.rect_hit_collition = pygame.Rect(self.rect.x + 450 , self.rect.y + 220  , self.rect.w -900  , self.rect.h - 200 )
+        self.rect_hit_collition_atack_l = pygame.Rect(self.rect.x - 100 , self.rect.y + 500  , self.rect.w -900  , self.rect.h - 500 )
+        self.rect_hit_collition_atack_r = pygame.Rect(self.rect.x + 800 , self.rect.y + 500  , self.rect.w -900  , self.rect.h - 500 )
 
       
 
@@ -110,6 +112,7 @@ class Boss:
             if (self.tiempo_transcurrido_animation >=self.frame_rate_ms*1.7 ):
                 self.tiempo_transcurrido_animation = 0
                 if (self.frame < len(self.animation) -1):
+                   
                     self.frame += 1
                 else:
                     self.frame = 0
@@ -150,6 +153,10 @@ class Boss:
         if(DEBUG):
             pygame.draw.rect(screen,RED,self.rect)
             pygame.draw.rect(screen,GREEN,self.rect_hit_collition)
+            if (self.animation == self.atack_l ) and (self.frame> 8 and self.frame<12) :
+                pygame.draw.rect(screen,BLUE,self.rect_hit_collition_atack_l)
+            if (self.animation == self.atack_r ) and (self.frame> 8 and self.frame<12) :    
+                pygame.draw.rect(screen,BLUE,self.rect_hit_collition_atack_r)
         try:
             self.image = self.animation[self.frame]
         except IndexError as e:
