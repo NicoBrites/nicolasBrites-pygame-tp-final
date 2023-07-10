@@ -51,8 +51,11 @@ Te da 1 vida.
 ## Controles:
 
 Flechitas : ← → se mueve para los costados
+
 SPACE : Salta
+
 Z : Dispara
+
 X : Accion
 
 ## Capturas :
