@@ -6,14 +6,10 @@ FPS = 60
 
 tamaño_player = (146,102)
 
-puntaje = 0
-
 DIRECTION_L = 0
 DIRECTION_R = 1
 
 DEBUG = False
-
-TIME_LOOSE = 60
 
 RED = (255,0,0)
 GREEN = (0,255,0)
@@ -21,7 +17,6 @@ BLUE = (0,0,255)
 
 GROUND_RECT_H = 10
 GROUND_LVL = 610
-#PATH_IMAGE = "/CLASE_19_inicio_juego/images/"
 
 C_RED = (255,0,0)
 C_GREEN = (0,255,0)
@@ -35,9 +30,6 @@ C_YELLOW_2 = (255, 174, 0)
 C_GREEEN_2 = (38, 137, 0)
 C_ORANGE = (255, 81, 0)
 
-
-
-#GROUND_COLLIDE_H = 8 # Aprox Gravedad/2 + 1
 
 # MOUSE CONSTANTS
 M_STATE_NORMAL = 0

@@ -1,13 +1,13 @@
 import pygame
 from constantes import *
 from configuraciones import *
-from auxiliar import Auxiliar
+
 
 class Proyectiles:
-    def __init__(self,x,y, speed_proyectil,direction,ms) -> None:
-        self.shoot_r = reescalar_imagen(proyectil_shoot_l,(64,64))
-        self.shoot_l = reescalar_imagen(proyectil_shoot_r,(64,64))
-        self.proyectil_hit = reescalar_imagen(proyectil_hit,(64,64))
+    def __init__(self, x, y, speed_proyectil, direction, ms) -> None:
+        self.shoot_r = reescalar_imagen(proyectil_shoot_l, (64, 64))
+        self.shoot_l = reescalar_imagen(proyectil_shoot_r, (64, 64))
+        self.proyectil_hit = reescalar_imagen(proyectil_hit, (64, 64))
 
         self.frame = 0
 
@@ -22,10 +22,9 @@ class Proyectiles:
         self.colisiono = False
         self.tiempo_colision = 0
 
-
         self.direction = direction
 
-    def update(self,ms):
+    def update(self, ms):
         if self.animation == self.proyectil_hit:
             self.is_explosion(ms)
             if (self.frame < len(self.animation) - 1):
@@ -46,31 +45,29 @@ class Proyectiles:
                 else:
                     self.frame = 0
                 self.rect.x += self.speed_proyectil
-                   
-            
-    def is_explosion(self,delta_ms):
+
+    def is_explosion(self, delta_ms):
         if self.animation == self.proyectil_hit:
             self.tiempo_colision += delta_ms
         print(self.tiempo_colision)
         if self.tiempo_colision >= 500:
             self.colisiono = True
-            self.frame = 0  
+            self.frame = 0
 
-
-    def draw(self,screen):
-        if(DEBUG):
-            pygame.draw.rect(screen,RED,self.rect)
+    def draw(self, screen):
+        if (DEBUG):
+            pygame.draw.rect(screen, RED, self.rect)
 
         self.image = self.animation[self.frame]
-        screen.blit(self.image,self.rect)
+        screen.blit(self.image, self.rect)
 
 class Proyectiles_lvl2(Proyectiles):
-    def __init__(self,x,y, speed_proyectil,direction,ms) -> None:
-        super().__init__(x,y, speed_proyectil,direction,ms)
+    def __init__(self, x, y, speed_proyectil, direction, ms) -> None:
+        super().__init__(x, y, speed_proyectil, direction, ms)
 
-        self.shoot_r = reescalar_imagen(proyectil_shoot_l,(32,32))
-        self.shoot_l = reescalar_imagen(proyectil_shoot_r,(32,32))
-        self.proyectil_hit = reescalar_imagen(proyectil_hit,(32,32))
+        self.shoot_r = reescalar_imagen(proyectil_shoot_l, (32, 32))
+        self.shoot_l = reescalar_imagen(proyectil_shoot_r, (32, 32))
+        self.proyectil_hit = reescalar_imagen(proyectil_hit, (32, 32))
 
         self.animation = self.shoot_l
         self.image = self.animation[self.frame]

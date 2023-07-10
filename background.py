@@ -1,15 +1,15 @@
 import pygame
 from constantes import *
 
+
 class Background:
-    def __init__(self, x, y,width, height,  path):
+    def __init__(self, x, y, width, height,  path):
 
         self.image = pygame.image.load(path).convert_alpha()
-        self.image = pygame.transform.scale(self.image,(width,height))
+        self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
 
-    def draw(self,screen):
-        screen.blit(self.image,self.rect)
-       
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)

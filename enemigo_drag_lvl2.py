@@ -4,6 +4,7 @@ from proyectiles import *
 from proyectiles_lvl2 import *
 
 
+
 class Enemigo_drag_lvl2():
     def __init__(self,x,y,frame_rate_ms,move_rate_ms,type = 0) -> None:
         self.type = type
@@ -33,7 +34,6 @@ class Enemigo_drag_lvl2():
         self.tiempo_transcurrido_animation = 0
 
         self.rect_ground_collition = pygame.Rect(self.rect.x + self.rect.w /3, self.rect.y + self.rect.h - GROUND_RECT_H, self.rect.w /3, GROUND_RECT_H)
-
 
     def do_fire(self, delta_ms,bullet_list):
         self.tiempo_transcurrido_move += delta_ms

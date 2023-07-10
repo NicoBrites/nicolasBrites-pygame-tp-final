@@ -1,7 +1,7 @@
 {"nivel": 
     [
     {"player":
-                {"x":500,"y":610,"speed_walk":30,"speed_run":30,"gravity":17,"jump_power":50,"frame_rate_ms":50,"move_rate_ms":50,"jump_heigh":200,"tipe":2}},
+                {"x":500,"y":610,"speed_walk":30,"speed_run":30,"gravity":17,"jump_power":50,"frame_rate_ms":50,"move_rate_ms":50,"jump_heigh":200,"tipe":0}},
     {"plataformas":
                     [
                     {"plataforma":"Platform","x":400,"y":600,"w":352,"h":64,"type":1},

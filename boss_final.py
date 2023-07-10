@@ -19,7 +19,7 @@ class Boss:
 
         self.die = reescalar_imagen(boss_final_death_l, (1152,640))
 
-        self.lives = 5
+        self.lives = 30
 
         self.frame = 0
         self.animation = self.idle_l
@@ -124,23 +124,24 @@ class Boss:
         if self.tiempo_explotado >= 2000:
             self.exploto = True
 
-
-    def crear_proyectil(self,ms,direction,type=0):
+    def crear_proyectil(self, ms, direction, type=0):
         if type == 0:
-            proyectil = Proyectiles_lvl3(x = self.rect_hit_collition.centerx ,y= self.rect_hit_collition.centery ,speed_proyectil=15,direction=direction,ms=ms)
+            proyectil = Proyectiles_lvl3(
+                x=self.rect_hit_collition.centerx, y=self.rect_hit_collition.centery, speed_proyectil=15, direction=direction, ms=ms)
             self.proyectil_creado = True
             return proyectil
         if type == 1:
-            proyectil = Proyectiles_lvl3(x = self.rect_hit_collition.centerx ,y= self.rect_hit_collition.centery -100 ,speed_proyectil=15,direction=direction,ms=ms)
+            proyectil = Proyectiles_lvl3(
+                x=self.rect_hit_collition.centerx, y=self.rect_hit_collition.centery - 100, speed_proyectil=15, direction=direction, ms=ms)
             self.proyectil_creado = True
             return proyectil
         if type == 2:
-            proyectil = Proyectiles_lvl3(x = self.rect_hit_collition.centerx ,y= self.rect_hit_collition.centery +100 ,speed_proyectil=15,direction=direction,ms=ms)
+            proyectil = Proyectiles_lvl3(
+                x=self.rect_hit_collition.centerx, y=self.rect_hit_collition.centery + 100, speed_proyectil=15, direction=direction, ms=ms)
             self.proyectil_creado = True
             return proyectil
-    
 
-    def update(self, delta_ms,bullet_list):
+    def update(self, delta_ms, bullet_list):
         if self.animation == self.die:
             self.is_explosion(delta_ms)
         else:
@@ -148,15 +149,14 @@ class Boss:
                 self.do_movement(delta_ms,bullet_list)
         self.do_animation(delta_ms)
 
-
-    def draw(self,screen):
-        if(DEBUG):
-            pygame.draw.rect(screen,RED,self.rect)
-            pygame.draw.rect(screen,GREEN,self.rect_hit_collition)
-            if (self.animation == self.atack_l ) and (self.frame> 8 and self.frame<12) :
-                pygame.draw.rect(screen,BLUE,self.rect_hit_collition_atack_l)
-            if (self.animation == self.atack_r ) and (self.frame> 8 and self.frame<12) :    
-                pygame.draw.rect(screen,BLUE,self.rect_hit_collition_atack_r)
+    def draw(self, screen):
+        if (DEBUG):
+            pygame.draw.rect(screen, RED, self.rect)
+            pygame.draw.rect(screen, GREEN, self.rect_hit_collition)
+            if (self.animation == self.atack_l) and (self.frame > 8 and self.frame < 12):
+                pygame.draw.rect(screen, BLUE, self.rect_hit_collition_atack_l)
+            if (self.animation == self.atack_r) and (self.frame > 8 and self.frame < 12):
+                pygame.draw.rect(screen, BLUE, self.rect_hit_collition_atack_r)
         try:
             self.image = self.animation[self.frame]
         except IndexError as e:
