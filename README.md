@@ -8,7 +8,7 @@ UTN MANIA es un juego de plataformas en 2D, donde vos sos un hombre del espacio 
 
 Este sos vos :
 
-![Alt text](../images/readme_img/player_readme.PNG)
+![player_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/72906157-78e7-4a43-8db5-763fdbf832dd)
 
 ~~(facherito no ?)~~
 
@@ -26,27 +26,27 @@ Cuando te quedas sin vidas, o cuando se acaba el tiempo del nivel (60 segundos).
 ### Calaverita:
 Muy bonita y versatil.
 
-![Alt text](../images/readme_img/calaverita_readme.PNG)
-
+![calaverita_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/3b971a7b-6427-4a32-b7d2-cb8e8d0c827a)
 ### Maguito:
 Cuidado que te tira fueguito.
 
-![Alt text](../images/readme_img/maguito_readme.PNG)
+![maguito_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/b49a4038-d513-4978-bf19-50eed203df45)
 ### Boss Final:
 Full picado.
 
-![Alt text](../images/readme_img/boss_readme.PNG)
+![boss_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/44f586a7-4e1b-4258-a76b-14970896e5ed)
 
 ## Botines
 ### Diamantes:
 Te da 1000 puntos.
 
-![Alt text](../images/readme_img/diamantito_readme.PNG)
+![diamantito_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/688c0dd1-7472-4e23-bbec-87f11af8bf75)
 
 ### Taquito:
 Te da 1 vida.
 
-![Alt text](../images/readme_img/taquito_readme.PNG)
+![taquito_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/1fb6850b-f38e-488f-b96c-cb0f8544e3ed)
+
 
 ## Controles:
 
@@ -56,8 +56,9 @@ Z : Dispara
 X : Accion
 
 ## Capturas :
-![Alt text](../images/readme_img/captura1_readme.PNG)
-![Alt text](../images/readme_img/captura2_readme.PNG)
+
+![captura1_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/e196675b-49af-4864-a351-8f5427061863)
+![captura2_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/48f3b256-c821-41dd-b706-cfa740a80a01)
 
 
 
