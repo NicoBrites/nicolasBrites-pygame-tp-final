@@ -26,13 +26,6 @@ Cuando te quedas sin vidas, o cuando se acaba el tiempo del nivel (60 segundos).
 ### Calaverita:
 Muy bonita y versatil.
 
-
-### Maguito:
-Cuidado que te tira fueguito.
-
-### Boss Final:
-Full picado.
-
 ![calaverita_readme](https://github.com/NicoBrites/NicolasBrites-pygame-tp-final/assets/104864856/3b971a7b-6427-4a32-b7d2-cb8e8d0c827a)
 ### Maguito:
 Cuidado que te tira fueguito.
