@@ -7,6 +7,7 @@ from botin import *
 from boss_final import Boss
 
 
+
 class Funciones:
 
     def crear_player(lista_json: list):

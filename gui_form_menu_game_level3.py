@@ -5,21 +5,14 @@ from constantes import *
 from gui_form import Form
 from gui_button import Button
 from gui_progressbar import ProgressBar
-from player import Player
-from enemigo import Enemigo
-from plataforma import *
 from background import Background
-from botin import *
 from textos import *
 from configuraciones import *
 from enemigo_drag_lvl2 import *
-from enemigo_calaca_lvl2 import *
 from sql import *
-from boss_final import Boss
 from proyectiles_lvl3 import *
 from proyectiles_final_map import Proyectiles_lvl3_final_map
 from funciones import Funciones
-
 
 class FormGameLevel3(Form):
     def __init__(self, name, master_surface, x, y, w, h, color_background, color_border, active):

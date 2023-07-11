@@ -5,19 +5,15 @@ from constantes import *
 from gui_form import Form
 from gui_button import Button
 from gui_progressbar import ProgressBar
-from player import *
 from enemigo import *
 from plataforma import *
 from background import Background
 from botin import *
 from textos import *
 from configuraciones import *
-from enemigo_calaca_lvl2 import *
-from enemigo_drag_lvl2 import *
 from portal import Portal
 from sql import *
 from funciones import Funciones
-
 
 class FormGameLevel2(Form):
     def __init__(self, name, master_surface, x, y, w, h, color_background, color_border, active):

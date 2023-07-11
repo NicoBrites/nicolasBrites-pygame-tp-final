@@ -28,7 +28,6 @@ class Proyectiles_lvl2_mage():
     def update(self, ms):
         if self.animation == self.proyectil_hit:
             self.is_explosion(ms)
-            # self.rect.x = 0
             if (self.frame < len(self.animation) - 1):
                 self.frame += 1
             else:
@@ -44,7 +43,6 @@ class Proyectiles_lvl2_mage():
     def is_explosion(self, delta_ms):
         if self.animation == self.proyectil_hit:
             self.tiempo_colision += delta_ms
-        print(self.tiempo_colision)
         if self.tiempo_colision >= 500:
             self.colisiono = True
             self.frame = 0

@@ -3,9 +3,6 @@ from pygame.locals import *
 from constantes import *
 from gui_form import Form
 from gui_progressbar import ProgressBar
-from player import Player
-from enemigo import Enemigo
-from plataforma import *
 from background import Background
 from botin import *
 from textos import *
@@ -13,6 +10,7 @@ from configuraciones import *
 from sql import *
 from gui_form_menu_A import *
 from funciones import *
+
 
 class FormGameLevel1(Form):
     def __init__(self,name,master_surface,x,y,w,h,color_background,color_border,active):
