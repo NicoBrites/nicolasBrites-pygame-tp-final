@@ -47,6 +47,7 @@ def leer_archivo(string_de_archivo_json):
     return lista
 
 
+
 pygame.mixer.init()
 
 SONIDO_DISPARO = generar_sonido(

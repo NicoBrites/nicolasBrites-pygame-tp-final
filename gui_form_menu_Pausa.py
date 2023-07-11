@@ -50,7 +50,6 @@ class FormMenuPausa(Form):
     def update(self, lista_eventos, keys, delta_ms):
 
         if self.form_lvl1.pause == True:
-            print("pausa lvl1")
             self.boton1 = Button(master=self, x=20, y=100, w=150, h=50, color_background=None, color_border=None, image_background=r"JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",
                                  on_click=self.on_click_boton3, on_click_param="form_game_L1", text="Reanudar", font="Verdana", font_size=30, font_color=C_WHITE)
             self.boton2 = Button(master=self, x=20, y=160, w=200, h=50, color_background=None, color_border=None, image_background=r"JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",
@@ -61,7 +60,6 @@ class FormMenuPausa(Form):
             self.form_lvl3.reiniciar = False
 
         elif self.form_lvl2.pause == True:
-            print("pausa lvl2")
             self.boton1 = Button(master=self, x=20, y=100, w=150, h=50, color_background=None, color_border=None, image_background=r"JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",
                                  on_click=self.on_click_boton3, on_click_param="form_game_L2", text="Reanudar", font="Verdana", font_size=30, font_color=C_WHITE)
             self.boton2 = Button(master=self, x=20, y=160, w=200, h=50, color_background=None, color_border=None, image_background=r"JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",
@@ -72,7 +70,6 @@ class FormMenuPausa(Form):
             self.form_lvl3.reiniciar = False
 
         elif self.form_lvl3.pause == True:
-            print("pausa lvl3")
             self.boton1 = Button(master=self, x=20, y=100, w=150, h=50, color_background=None, color_border=None, image_background=r"JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",
                                  on_click=self.on_click_boton3, on_click_param="form_game_L3", text="Reanudar", font="Verdana", font_size=30, font_color=C_WHITE)
             self.boton2 = Button(master=self, x=20, y=160, w=200, h=50, color_background=None, color_border=None, image_background=r"JUEGO_ON\images\GUI\BOTOn\Button_M_02.png",

@@ -18,6 +18,7 @@ from sql import *
 from boss_final import Boss
 from proyectiles_lvl3 import *
 from proyectiles_final_map import Proyectiles_lvl3_final_map
+from funciones import Funciones
 
 
 class FormGameLevel3(Form):
@@ -54,15 +55,14 @@ class FormGameLevel3(Form):
 
         # --- GAME ELEMNTS ---
 
-        self.player_1 = self.crear_player(self.data)
+        self.player_1 = Funciones.crear_player(self.data)
 
-        self.boss = self.crear_boss(self.data)
+        self.boss = Funciones.crear_boss(self.data)
 
         self.lista_enemigos = []
         self.lista_enemigos.append(self.boss)
 
-        self.lista_plataformas = []
-        self.crear_plataformas(self.data)
+        self.lista_plataformas = Funciones.crear_plataformas(self.data)
 
         self.bullet_list = []
 
@@ -86,42 +86,10 @@ class FormGameLevel3(Form):
         self.set_active(parametro)
 
     def on_click_boton2(self, parametro):
-        self.mute()
+        Funciones.mute()
 
     def on_click_boton3(self, parametro):
-        self.desmute()
-
-    def crear_player(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "player":
-                    return Player(x=valor["x"], y=valor["y"], speed_walk=valor["speed_walk"], speed_run=valor["speed_run"], gravity=valor["gravity"], jump_power=valor["jump_power"],
-                                  frame_rate_ms=valor["frame_rate_ms"], move_rate_ms=valor["move_rate_ms"], jump_heigh=valor["jump_heigh"], tipe=valor["tipe"])
-
-    def crear_boss(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "boss":
-                    return Boss(x=valor["x"], y=valor["y"], speed_walk=valor["speed_walk"], speed_run=valor["speed_run"], gravity=valor["gravity"],
-                                frame_rate_ms=valor["frame_rate_ms"], move_rate_ms=valor["move_rate_ms"])
-
-    def crear_plataformas(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "plataformas":
-                    for plataformas in valor:
-                        if plataformas["plataforma"] == "Piso_lvl2":
-                            self.lista_plataformas.append(Piso_lvl2(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-                        elif plataformas["plataforma"] == "Plataforma_lvl2":
-                            self.lista_plataformas.append(Plataforma_lvl2(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-                        elif plataformas["plataforma"] == "Plataforma_lvl2_dinamica":
-                            self.lista_plataformas.append(Plataforma_lvl2_dinamica(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-                        else:
-                            self.lista_plataformas.append(Plataforma_lvl2_dinamica_y(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
+        Funciones.desmute()
 
     def crear_lluvia(self, delta_ms, bullet_list):
         self.contador += 1
@@ -142,12 +110,6 @@ class FormGameLevel3(Form):
     def play_music(self):
         pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Boss_Fight.ogg")
         pygame.mixer.music.play(3)
-        pygame.mixer.music.set_volume(VOLUMEN_FONDO)
-
-    def mute(self):
-        pygame.mixer.music.set_volume(0)
-
-    def desmute(self):
         pygame.mixer.music.set_volume(VOLUMEN_FONDO)
 
     def update(self, events, keys, delta_ms, evento_1000ms):
@@ -205,39 +167,36 @@ class FormGameLevel3(Form):
                 "form_menu_A"), self.player_1.score, lvl=3)
             self.lista_enemigos = []
             self.bullet_list = []
-            self.player_1 = Player(x=200, y=550, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200, tipe=2)
-            self.boss = Boss(x=300, y=50, speed_walk=4, speed_run=8,
-                             gravity=15, frame_rate_ms=50, move_rate_ms=10)
+            self.player_1 = Funciones.crear_player(self.data)
+            self.boss = Funciones.crear_boss(self.data)
             self.lista_enemigos.append(self.boss)
             self.cronometro = 60
             self.win_menu = True
+            self.pb_lives.value = 5
 
         if self.player_1.lives == 0 or self.cronometro == 0:
             self.set_active("form_menu_game_over")
             Sql.crear_tabla(lvl=2)
             Sql.agregar_datos(Form.devolver_txt(
                 "form_menu_A"), self.player_1.score, lvl=2)
-            self.player_1 = Player(x=200, y=550, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200, tipe=2)
+            self.player_1 = Funciones.crear_player(self.data)
             self.lista_enemigos = []
             self.bullet_list = []
-            self.boss = Boss(x=300, y=50, speed_walk=4, speed_run=8,
-                             gravity=15, frame_rate_ms=50, move_rate_ms=10)
+            self.boss = Funciones.crear_boss(self.data)
             self.lista_enemigos.append(self.boss)
             self.cronometro = 60
             self.lose_menu = True
+            self.pb_lives.value = 5
 
         if self.reiniciar == True:
-            self.player_1 = Player(x=200, y=550, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200, tipe=2)
+            self.player_1 = Funciones.crear_player(self.data)
             self.lista_enemigos = []
             self.bullet_list = []
-            self.boss = Boss(x=300, y=50, speed_walk=4, speed_run=8,
-                             gravity=15, frame_rate_ms=50, move_rate_ms=10)
+            self.boss = Funciones.crear_boss(self.data)
             self.lista_enemigos.append(self.boss)
             self.cronometro = 60
             self.reiniciar = False
+            self.pb_lives.value = 5
 
     def draw(self):
         super().draw()

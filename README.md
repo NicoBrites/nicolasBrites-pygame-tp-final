@@ -8,7 +8,7 @@ UTN MANIA es un juego de plataformas en 2D, donde vos sos un hombre del espacio 
 
 Este sos vos :
 
-![Alt text](../images/readme_img/player_readme.PNG)
+![png](images/readme_img/player_readme.PNG)
 
 ~~(facherito no ?)~~
 
@@ -26,27 +26,27 @@ Cuando te quedas sin vidas, o cuando se acaba el tiempo del nivel (60 segundos).
 ### Calaverita:
 Muy bonita y versatil.
 
-![Alt text](../images/readme_img/calaverita_readme.PNG)
+![png](../images/readme_img/calaverita_readme.PNG)
 
 ### Maguito:
 Cuidado que te tira fueguito.
 
-![Alt text](../images/readme_img/maguito_readme.PNG)
+![png](../images/readme_img/maguito_readme.PNG)
 ### Boss Final:
 Full picado.
 
-![Alt text](../images/readme_img/boss_readme.PNG)
+![png](../images/readme_img/boss_readme.PNG)
 
 ## Botines
 ### Diamantes:
 Te da 1000 puntos.
 
-![Alt text](../images/readme_img/diamantito_readme.PNG)
+![png](../images/readme_img/diamantito_readme.PNG)
 
 ### Taquito:
 Te da 1 vida.
 
-![Alt text](../images/readme_img/taquito_readme.PNG)
+![png](../images/readme_img/taquito_readme.PNG)
 
 ## Controles:
 
@@ -56,8 +56,8 @@ Z : Dispara
 X : Accion
 
 ## Capturas :
-![Alt text](../images/readme_img/captura1_readme.PNG)
-![Alt text](../images/readme_img/captura2_readme.PNG)
+![png](../images/readme_img/captura1_readme.PNG)
+![png](../images/readme_img/captura2_readme.PNG)
 
 
 

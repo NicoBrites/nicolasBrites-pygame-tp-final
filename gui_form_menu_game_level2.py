@@ -16,6 +16,7 @@ from enemigo_calaca_lvl2 import *
 from enemigo_drag_lvl2 import *
 from portal import Portal
 from sql import *
+from funciones import Funciones
 
 
 class FormGameLevel2(Form):
@@ -51,18 +52,15 @@ class FormGameLevel2(Form):
 
         # --- GAME ELEMNTS ---
 
-        self.player_1 = self.crear_player(self.data)
+        self.player_1 = Funciones.crear_player(self.data)
 
-        self.lista_enemigos = []
-        self.crear_enemigos(self.data)
+        self.lista_enemigos = Funciones.crear_enemigos(self.data)
 
-        self.lista_plataformas = []
-        self.crear_plataformas(self.data)
+        self.lista_plataformas = Funciones.crear_plataformas(self.data)
 
         self.bullet_list = []
 
-        self.lista_botinex = []
-        self.crear_botines(self.data)
+        self.lista_botinex = Funciones.crear_botines(self.data)
 
         self.lista_portal = []
 
@@ -77,70 +75,15 @@ class FormGameLevel2(Form):
         self.pause = False
         self.lose_menu = False
 
-    def crear_player(self, lista_json: list):
-        for objetos in lista_json:
-            print(objetos)
-            for clave, valor in objetos.items():
-                print(clave, valor)
-                if clave == "player":
-                    print("entro")
-                    return Player(x=valor["x"], y=valor["y"], speed_walk=valor["speed_walk"], speed_run=valor["speed_run"], gravity=valor["gravity"], jump_power=valor["jump_power"],
-                                  frame_rate_ms=valor["frame_rate_ms"], move_rate_ms=valor["move_rate_ms"], jump_heigh=valor["jump_heigh"], tipe=valor["tipe"])
-
-    def crear_plataformas(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "plataformas":
-                    for plataformas in valor:
-                        if plataformas["plataforma"] == "Piso_lvl2":
-                            self.lista_plataformas.append(Piso_lvl2(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-                        elif plataformas["plataforma"] == "Plataforma_lvl2":
-                            self.lista_plataformas.append(Plataforma_lvl2(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-                        elif plataformas["plataforma"] == "Plataforma_lvl2_dinamica":
-                            self.lista_plataformas.append(Plataforma_lvl2_dinamica(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-                        else:
-                            self.lista_plataformas.append(Plataforma_lvl2_dinamica_y(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-
-    def crear_enemigos(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "enemigos":
-                    for enemigos in valor:
-                        if enemigos["enemigo"] == "Enemigo_drag_lvl2":
-                            self.lista_enemigos.append(Enemigo_drag_lvl2(x=enemigos["x"], y=enemigos["y"],
-                                                                            frame_rate_ms=enemigos["frame_rate_ms"], move_rate_ms=enemigos["move_rate_ms"], type=enemigos["type"]))
-                        else:
-                            self.lista_enemigos.append(Enemigo_calaca_lvl2(x=enemigos["x"], y=enemigos["y"], speed_walk=enemigos["speed_walk"], speed_run=enemigos["speed_run"], gravity=enemigos["gravity"],
-                                                                            frame_rate_ms=enemigos["frame_rate_ms"], move_rate_ms=enemigos["move_rate_ms"], type=enemigos["type"]))
-
-    def crear_botines(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "botines":
-                    for botines in valor:
-                        if botines["botin"] == "Botin":
-                                self.lista_botinex.append(
-                                    Botin(x=botines["x"], y=botines["y"], w=botines["w"], h=botines["h"]))
-                        elif botines["botin"] == "Comidita":
-                                self.lista_botinex.append(
-                                    Comidita(x=botines["x"], y=botines["y"], w=botines["w"], h=botines["h"]))
-                        else:
-                            self.lista_botinex.append(
-                                Console(x=botines["x"], y=botines["y"], w=botines["w"], h=botines["h"]))
-
 
     def on_click_boton1(self, parametro):
         self.pause = True
         self.set_active(parametro)  
 
     def on_click_boton2(self,parametro):
-        self.mute()
+        Funciones.mute()
     def on_click_boton3(self,parametro):
-        self.desmute()
+        Funciones.desmute()
 
     def stop_music(self):
         pygame.mixer.music.stop()
@@ -148,12 +91,6 @@ class FormGameLevel2(Form):
     def play_music(self):
         pygame.mixer.music.load(r"JUEGO_ON\music\musica_fondo\Dangerous_Dungeon.ogg")
         pygame.mixer.music.play(3)
-        pygame.mixer.music.set_volume(VOLUMEN_FONDO)
-    
-    def mute(self):
-        pygame.mixer.music.set_volume(0)
-    
-    def desmute(self):
         pygame.mixer.music.set_volume(VOLUMEN_FONDO)
 
     def update(self,events,keys,delta_ms,evento_1000ms):
@@ -241,7 +178,7 @@ class FormGameLevel2(Form):
         if len(self.lista_portal) > 0:
             for portal in self.lista_portal:
                 portal.update(delta_ms)
-                print("entro")
+
 
         if self.player_1.llave == True:
             self.lista_botinex.append(Escalerita(1450, 650, 48, 54))
@@ -250,49 +187,43 @@ class FormGameLevel2(Form):
 
         if self.player_1.escalerita == True:
             self.set_active("form_menu_win")
-            self.lista_enemigos = []
-            self.lista_botinex = []
+            self.lista_enemigos = Funciones.crear_enemigos(self.data)
+            self.lista_botinex = Funciones.crear_botines(self.data)
             self.bullet_list = []
             self.lista_portal = []
-            self.crear_enemigos(self.data)
-            self.crear_botines(self.data)
             self.player_1.score += self.cronometro * 10
             Sql.crear_tabla(lvl=2)
             Sql.agregar_datos(Form.devolver_txt(
                 "form_menu_A"), self.player_1.score, lvl=2)
-            self.player_1 = Player(x=500, y=550, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200, tipe=2)
+            self.player_1 = Funciones.crear_player(self.data)
             self.cronometro = 60
             self.win = True
             self.win_menu = True
+            self.pb_lives.value = 5
 
         if self.player_1.lives == 0 or self.cronometro == 0:
             self.set_active("form_menu_game_over")
-            self.lista_enemigos = []
-            self.lista_botinex = []
+            self.lista_enemigos = Funciones.crear_enemigos(self.data)
+            self.lista_botinex = Funciones.crear_botines(self.data)
             self.bullet_list = []
             self.lista_portal = []
-            self.crear_enemigos(self.data)
-            self.crear_botines(self.data)
             Sql.crear_tabla(lvl=2)
             Sql.agregar_datos(Form.devolver_txt(
                 "form_menu_A"), self.player_1.score, lvl=2)
-            self.player_1 = Player(x=500, y=550, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200, tipe=2)
+            self.player_1 = Funciones.crear_player(self.data)
             self.cronometro = 60
             self.lose_menu = True
+            self.pb_lives.value = 5
 
         if self.reiniciar == True:
-            self.lista_enemigos = []
-            self.lista_botinex = []
+            self.lista_enemigos = Funciones.crear_enemigos(self.data)
+            self.lista_botinex = Funciones.crear_botines(self.data)
             self.bullet_list = []
             self.lista_portal = []
-            self.crear_enemigos(self.data)
-            self.crear_botines(self.data)
-            self.player_1 = Player(x=500, y=550, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200, tipe=2)
+            self.player_1 = Funciones.crear_player(self.data)
             self.cronometro = 60
             self.reiniciar = False
+            self.pb_lives.value = 5
 
     def draw(self):
         super().draw()

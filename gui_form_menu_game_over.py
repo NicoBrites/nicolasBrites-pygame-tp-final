@@ -37,7 +37,6 @@ class FormMenuGameOver(Form):
             self.form_lvl1.lose_menu = False
             self.form_lvl2.lose_menu = False
             self.form_lvl3.lose_menu = False
-            print("menu lvl3")
 
         if self.form_lvl1.lose_menu == True:
             self.boton3 = Button(master=self, x=20, y=290, w=200, h=40, color_background=C_PINK, color_border=C_RED, on_click=self.on_click_boton1,
@@ -45,7 +44,6 @@ class FormMenuGameOver(Form):
             self.form_lvl1.lose_menu = False
             self.form_lvl2.lose_menu = False
             self.form_lvl3.lose_menu = False
-            print("menu lvl1")
 
         if self.form_lvl2.lose_menu == True:
             self.boton3 = Button(master=self, x=20, y=290, w=200, h=40, color_background=C_PINK, color_border=C_RED, on_click=self.on_click_boton1,
@@ -53,7 +51,7 @@ class FormMenuGameOver(Form):
             self.form_lvl1.lose_menu = False
             self.form_lvl2.lose_menu = False
             self.form_lvl3.lose_menu = False
-            print("menu lvl2")
+
 
         self.lista_widget = [self.boton1, self.boton2, self.boton3]
 

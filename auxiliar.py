@@ -19,3 +19,4 @@ class Auxiliar:
                         surface_fotograma, True, False)
                 lista.append(surface_fotograma)
         return lista
+    

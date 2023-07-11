@@ -12,6 +12,7 @@ from textos import *
 from configuraciones import *
 from sql import *
 from gui_form_menu_A import *
+from funciones import *
 
 class FormGameLevel1(Form):
     def __init__(self,name,master_surface,x,y,w,h,color_background,color_border,active):
@@ -45,18 +46,15 @@ class FormGameLevel1(Form):
 
         # --- GAME ELEMNTS --- 
        
-        self.player_1 = self.crear_player(self.data)
+        self.player_1 = Funciones.crear_player(self.data)
         
-        self.lista_enemigos = []
-        self.crear_enemigos(self.data)
+        self.lista_enemigos = Funciones.crear_enemigos(self.data)
 
-        self.lista_plataformas = []
-        self.crear_plataformas(self.data)
+        self.lista_plataformas = Funciones.crear_plataformas(self.data)
 
         self.bullet_list = []
 
-        self.lista_botinex = []
-        self.crear_botines(self.data)
+        self.lista_botinex = Funciones.crear_botines(self.data)
       
         self.cronometro = 60
         self.start_time = 0
@@ -72,47 +70,6 @@ class FormGameLevel1(Form):
         self.lose_menu = False
         self.flag_sound = False
 
-    def crear_player(self, lista_json: list):
-        for objetos in lista_json:
-            print(objetos)
-            for clave, valor in objetos.items():
-                print(clave, valor)
-                if clave == "player":
-                    print("entro")
-                    return Player(x=valor["x"], y=valor["y"], speed_walk=valor["speed_walk"], speed_run=valor["speed_run"], gravity=valor["gravity"], jump_power=valor["jump_power"],
-                                  frame_rate_ms=valor["frame_rate_ms"], move_rate_ms=valor["move_rate_ms"], jump_heigh=valor["jump_heigh"], tipe=valor["tipe"])
-
-    def crear_plataformas(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "plataformas":
-                    for plataformas in valor:
-                        if plataformas["plataforma"] == "Techito":
-                            self.lista_plataformas.append(Techito(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-                        else:
-                            self.lista_plataformas.append(Platform(
-                                x=plataformas["x"], y=plataformas["y"], w=plataformas["w"], h=plataformas["h"], type=plataformas["type"]))
-
-    def crear_enemigos(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "enemigos":
-                    for enemigos in valor:
-                        self.lista_enemigos.append(Enemigo(x=enemigos["x"], y=enemigos["y"], speed_walk=enemigos["speed_walk"], speed_run=enemigos["speed_run"], gravity=enemigos["gravity"],
-                                                           frame_rate_ms=enemigos["frame_rate_ms"], move_rate_ms=enemigos["move_rate_ms"]))
-
-    def crear_botines(self, lista_json: list):
-        for objetos in lista_json:
-            for clave, valor in objetos.items():
-                if clave == "botines":
-                    for botines in valor:
-                        if botines["botin"] == "Botin":
-                            self.lista_botinex.append(
-                                Botin(x=botines["x"], y=botines["y"], w=botines["w"], h=botines["h"]))
-                        else:
-                            self.lista_botinex.append(
-                                Comidita(x=botines["x"], y=botines["y"], w=botines["w"], h=botines["h"]))
 
     def stop_music(self):
         pygame.mixer.music.stop()
@@ -123,21 +80,15 @@ class FormGameLevel1(Form):
         pygame.mixer.music.play(3)
         pygame.mixer.music.set_volume(VOLUMEN_FONDO)
 
-    def mute(self):
-        pygame.mixer.music.set_volume(0)
-
-    def desmute(self):
-        pygame.mixer.music.set_volume(VOLUMEN_FONDO)
-
     def on_click_boton1(self, parametro):
         self.pause = True
         self.set_active(parametro)
 
     def on_click_boton2(self, parametro):
-        self.mute()
+        Funciones.mute()
 
     def on_click_boton3(self, parametro):
-        self.desmute()
+        Funciones.desmute()
 
     def update(self, events, keys, delta_ms, evento_1000ms):
 
@@ -200,49 +151,43 @@ class FormGameLevel1(Form):
         if self.player_1.llave == True:
             self.lista_botinex.append(Escalerita(1400, 700, 48, 54))
 
-            # SI GANO O SI PIEDO :
+            # SI GANO O SI PIERDO :
         if self.player_1.escalerita == True:
             self.set_active("form_menu_win")
-            self.lista_enemigos = []
-            self.crear_enemigos(self.data)
-            self.lista_botinex = []
-            self.crear_botines(self.data)
+            self.lista_enemigos = Funciones.crear_enemigos(self.data)
+            self.lista_botinex = Funciones.crear_botines(self.data)
             self.bullet_list = []
             self.player_1.score += self.cronometro * 10
             Sql.crear_tabla(lvl=1)
             Sql.agregar_datos(Form.devolver_txt(
                 "form_menu_A"), self.player_1.score, lvl=1)
-            self.player_1 = Player(x=500, y=610, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200)
+            self.player_1 = Funciones.crear_player(self.data)
             self.cronometro = 60
             self.win = True
             self.win_menu = True
+            self.pb_lives.value = 5
 
         if self.player_1.lives == 0 or self.cronometro == 0:
             self.set_active("form_menu_game_over")
-            self.lista_enemigos = []
-            self.crear_enemigos(self.data)
-            self.lista_botinex = []
-            self.crear_botines(self.data)
+            self.lista_enemigos = Funciones.crear_enemigos(self.data)
+            self.lista_botinex = Funciones.crear_botines(self.data)
             self.bullet_list = []
             Sql.crear_tabla(lvl=1)
             Sql.agregar_datos(Form.devolver_txt(
                 "form_menu_A"), self.player_1.score, lvl=1)
-            self.player_1 = Player(x=500, y=610, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200)
+            self.player_1 = Funciones.crear_player(self.data)
             self.cronometro = 60
             self.lose_menu = True
+            self.pb_lives.value = 5
 
         if self.reiniciar == True:
-            self.lista_enemigos = []
-            self.crear_enemigos(self.data)
-            self.lista_botinex = []
-            self.crear_botines(self.data)
+            self.lista_enemigos = Funciones.crear_enemigos(self.data)
+            self.lista_botinex = Funciones.crear_botines(self.data)
             self.bullet_list = []
-            self.player_1 = Player(x=500, y=610, speed_walk=8, speed_run=8, gravity=17,
-                                   jump_power=50, frame_rate_ms=50, move_rate_ms=50, jump_heigh=200)
+            self.player_1 = Funciones.crear_player(self.data)
             self.cronometro = 60
             self.reiniciar = False
+            self.pb_lives.value = 5
 
     def draw(self):
         super().draw()
