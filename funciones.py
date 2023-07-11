@@ -11,11 +11,8 @@ class Funciones:
 
     def crear_player(lista_json: list):
             for objetos in lista_json:
-                print(objetos)
                 for clave, valor in objetos.items():
-                    print(clave, valor)
                     if clave == "player":
-                        print("entro")
                         return Player(x=valor["x"], y=valor["y"], speed_walk=valor["speed_walk"], speed_run=valor["speed_run"], gravity=valor["gravity"], jump_power=valor["jump_power"],
                                     frame_rate_ms=valor["frame_rate_ms"], move_rate_ms=valor["move_rate_ms"], jump_heigh=valor["jump_heigh"], tipe=valor["tipe"])
 

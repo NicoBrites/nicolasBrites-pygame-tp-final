@@ -104,7 +104,6 @@ class Enemigo:
     def is_explosion(self, delta_ms):
         if self.animation == self.die:
             self.tiempo_explotado += delta_ms
-        print(self.tiempo_explotado)
         if self.tiempo_explotado >= 500:
             self.exploto = True
             self.frame = 0
